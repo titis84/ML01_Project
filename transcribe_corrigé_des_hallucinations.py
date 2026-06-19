@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 import librosa
 import time
@@ -20,8 +23,8 @@ def corriger_avec_gemini(texte_a_corriger):
         return texte_a_corriger
 
     # 🔑 REMPLACE par ta clé API Gemini (obtenue sur Google AI Studio)
-    API_KEY = "os.environ.get("GEMINI_API_KEY", "TA_CLE_API_GEMINI")  
-
+    import os
+    API_KEY = os.environ.get("GEMINI_API_KEY", "TA_CLE_API_GEMINI")
     if not API_KEY or API_KEY == "TA_CLE_API_GEMINI":
         print("⚠️ Clé API Gemini manquante. Correction ignorée.")
         return texte_a_corriger
@@ -119,20 +122,18 @@ def traiter_dossier(dossier_entree, suffixe):
 
             predicted_ids = model.generate(
                 input_features,
-                task="transcribe",
-                num_beams=4,
-                temperature=0.0,
-                no_speech_threshold=0.4,
-                max_length=448
+                max_length=448,
+                #return_dict_in_generate=True
             )
 
             transcription = processor.batch_decode(predicted_ids, skip_special_tokens=True)[0]
+            fin = time.time() 
 
-            # Anti-hallucination
-            if len(transcription.strip()) < 10 and any(mot in transcription.lower() for mot in ["thank", "thanks"]):
+            # Remplace ton anti-hallucination actuel par :
+            mots_hallucination = ["thank", "thanks", "万税", "ご視聴", "subtitles"]
+            if len(transcription.strip()) < 20 or any(mot in transcription for mot in mots_hallucination):
                 transcription = "[SILENCE - AUCUNE PAROLE DETECTEE]"
 
-            fin = time.time()
 
             # --- Sauvegarde ORIGINALE ---
             chemin_original = os.path.join(dossier_sortie, f"{nom_sans_ext}_{suffixe}_original.txt")
