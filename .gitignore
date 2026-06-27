@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+
+# Local experiment inputs and large temporary archives.
+evaluation_input/
+*.zip
+*.rar

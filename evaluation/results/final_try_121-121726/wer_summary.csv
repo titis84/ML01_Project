@@ -1,0 +1,7 @@
+scenario,mean_wer,median_wer,sample_count
+brut_with_llm,0.088458,0.000000,15
+brut_without_llm,0.088458,0.000000,15
+denoise_with_llm,0.088458,0.000000,15
+denoise_without_llm,0.088458,0.000000,15
+vad_with_llm,0.088458,0.000000,15
+vad_without_llm,0.088458,0.000000,15
