@@ -1,15 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 import librosa
 import time
 import os
 import glob
 
-# ============================================================
-# FONCTION DE CORRECTION PAR LLM (GEMINI)
-# ============================================================
+# Correstion by LLM function (GEMINI)
 
 def corriger_avec_gemini(texte_a_corriger):
     """
@@ -21,8 +16,6 @@ def corriger_avec_gemini(texte_a_corriger):
         print("⚠️ La librairie 'google-genai' n'est pas installée.")
         print("   Pour l'installer : pip install google-genai")
         return texte_a_corriger
-
-    # 🔑 REMPLACE par ta clé API Gemini (obtenue sur Google AI Studio)
     import os
     API_KEY = os.environ.get("GEMINI_API_KEY", "TA_CLE_API_GEMINI")
     if not API_KEY or API_KEY == "TA_CLE_API_GEMINI":
@@ -64,9 +57,7 @@ def corriger_avec_gemini(texte_a_corriger):
         return texte_a_corriger
 
 
-# ============================================================
 # CONFIGURATION
-# ============================================================
 
 NOM_MODELE = "openai/whisper-tiny"
 
@@ -77,10 +68,7 @@ DOSSIERS_ENTREE = {
 }
 DOSSIER_SORTIE_BASE = "resultats_transcriptions"
 
-
-# ============================================================
 # FONCTION PRINCIPALE
-# ============================================================
 
 def traiter_dossier(dossier_entree, suffixe):
     """Transcrit TOUS les fichiers audio d'un dossier."""
@@ -99,7 +87,7 @@ def traiter_dossier(dossier_entree, suffixe):
     print(f"\n📁 Traitement du pipeline : {suffixe.upper()}")
     print(f"   Dossier : {dossier_entree} ({len(fichiers)} fichier(s))")
 
-    # Charger le modèle une seule fois
+    # the model used
     processor = WhisperProcessor.from_pretrained(NOM_MODELE)
     model = WhisperForConditionalGeneration.from_pretrained(NOM_MODELE)
 
@@ -110,13 +98,13 @@ def traiter_dossier(dossier_entree, suffixe):
         try:
             print(f"  [{i}/{len(fichiers)}] {nom_fichier}...")
 
-            # Chargement audio
+            # Audio chargement
             audio_data, _ = librosa.load(chemin_audio, sr=16000)
 
             if len(audio_data) < 8000:
                 raise ValueError("Fichier trop court (<0.5s)")
 
-            # Transcription Whisper
+            # Whisper transcription 
             debut = time.time()
             input_features = processor(audio_data, sampling_rate=16000, return_tensors="pt").input_features
 
