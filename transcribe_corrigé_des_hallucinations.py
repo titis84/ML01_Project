@@ -118,8 +118,7 @@ def traiter_dossier(dossier_entree, suffixe):
             fin = time.time() 
 
             # Remplace ton anti-hallucination actuel par :
-            mots_hallucination = ["thank", "thanks", "万税", "ご視聴", "subtitles"]
-            if len(transcription.strip()) < 20 or any(mot in transcription for mot in mots_hallucination):
+            if len(transcription.strip()) < 30 and any(mot in transcription.lower() for mot in mots_hallucination):
                 transcription = "[SILENCE - AUCUNE PAROLE DETECTEE]"
 
 
