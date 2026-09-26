@@ -14,7 +14,7 @@ Three audio configurations are compared:
 
 The audio is transcribed using *Whisper Tiny* and can then be post-processed using *Google Gemini*.
 
-My Contribution
+## My Contribution
 
 **My work focused on the speech recognition and LLM post-processing stages.**
 
