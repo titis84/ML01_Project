@@ -125,7 +125,6 @@ Evaluation results are available in the evaluation/ directory.
 
 ## Project Structure
 
-```text
 ML01_Project/
 ├── evaluation/
 ├── code_debruitage_v1.py
@@ -133,25 +132,24 @@ ML01_Project/
 ├── .gitignore
 └── README.md
 
-
 ## Supported Audio Formats
 
 The preprocessing script supports:
 
-- .wav
-- .mp3
-- .flac
-- .ogg
-- .m4a
-- .aiff
-- .aif
+- `.wav`
+- `.mp3`
+- `.flac`
+- `.ogg`
+- `.m4a`
+- `.aiff`
+- `.aif`
 
-The transcription script processes:
+The transcription script supports:
 
-- .wav
-- .mp3
-- .m4a
-- .flac
+- `.wav`
+- `.mp3`
+- `.m4a`
+- `.flac`
 
 ## Future Improvements
 
