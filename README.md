@@ -14,18 +14,6 @@ Three audio configurations are compared:
 
 The audio is transcribed using *Whisper Tiny* and can then be post-processed using *Google Gemini*.
 
-## My Contribution
-
-**My work focused on the speech recognition and LLM post-processing stages.**
-
-- Integrated **Whisper Tiny** for automatic speech recognition
-- Integrated the **Google Gemini API** for transcription correction
-- Designed prompts to correct transcription errors while preserving meaning
-- Measured Whisper inference time
-- Implemented the generation and storage of original and corrected transcriptions
-
-The audio preprocessing stage was developed collaboratively by the team.
-
 ## Objective
 
 The objective is to evaluate how audio preprocessing and LLM-based post-processing affect ASR performance.
@@ -42,24 +30,34 @@ Whisper Tiny was selected as a lightweight model providing satisfactory results 
 
 ## Pipeline
 
-text
-Audio
-  │
-  ├── Original
-  ├── Denoised
-  └── Denoised + VAD
-          │
-          ▼
-     Whisper Tiny
-          │
-          ▼
-  Whisper Transcription
-          │
-          ▼
-    Gemini Correction
-          │
-          ▼
-Gemini-Corrected Transcription
+                  AUDIO
+                    │
+          ┌─────────┼─────────┐
+          ↓         ↓         ↓
+       Original  Denoised  Denoised + VAD
+          │         │         │
+          └─────────┼─────────┘
+                    ↓
+              Whisper Tiny
+                    ↓
+             Transcription
+                    ↓
+              Gemini API
+                    ↓
+        Corrected Transcription
+
+
+## My Contribution
+
+**My work focused on the speech recognition and LLM post-processing stages.**
+
+- Integrated **Whisper Tiny** for automatic speech recognition
+- Integrated the **Google Gemini API** for transcription correction
+- Designed prompts to correct transcription errors while preserving meaning
+- Measured Whisper inference time
+- Implemented the generation and storage of original and corrected transcriptions
+
+The audio preprocessing stage was developed collaboratively by the team.
 
 
 ## Audio Processing
